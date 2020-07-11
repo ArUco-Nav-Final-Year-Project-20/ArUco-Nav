@@ -1,100 +1,51 @@
-# Project name
+# ArUco-Nav
 
-<!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md)
-![GitHub contributors](https://img.shields.io/github/contributors/scottydocs/README-template.md)
-![GitHub stars](https://img.shields.io/github/stars/scottydocs/README-template.md?style=social)
-![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/scottydocs?style=social)
+### Localization and visual navigation of a scalable robot swarm using ArUco markers.
 
-`<project name>` is a `<utility/tool/feature>` that allows `<insert_target_audience>` to do `<action/task_it_does>`.
+Localization of ArUco markers -
+![localization-sim](images/localization.png)
 
-`<insert images/screenshots here>`
+Swarm navigation simulated in a pygame window -
+![navigation-sim](images/navigation.png)
 
-<div align="center">
-  <img src="https://image.flaticon.com/icons/svg/685/685686.svg" width="50%">
-</div>
+For simulating the navigation and logging the results, a simple 15 seconds scene was arranged with 3 swarm robots (indicated by their green bounding boxes and their
+ArUco marker IDs) and 4 barrier points (indicated by red bounding boxes).
 
-Additional line of information text about what the project does.
+ArUco-Nav setup -
+![setup](images/setup.jpg)
 
-## Built with
+A total of 60 frames were recorded and scanned at the rate of 8fps using the overhead smart phone camera running ```ArUco Scanner``` server at ```192.168.2.2:5000```.
+The response obtained from the server was processed to log the marker (and hence, the robot) orientation in 2D space (using the tvec and rvec components - xm, ym, zm, roll,
+pitch and yaw).
 
-- [jQuery - Ajax](http://www.w3schools.com/jquery/jquery_ref_ajax.asp) - jQuery simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.
-- [Bootstrap](http://getbootstrap.com/) - Extensive list of components and  Bundled Javascript plugins.
-- `<insert other components>`
+The final simulation as shown in the pygame window ```ArUco
+Scanner Nav Sim``` -
+![output-simulation](images/output.png)
 
-## Prerequisites
-
-Before you begin, ensure you have met the following requirements:
-* You have installed the latest version of `<coding_language/dependency/requirement_1>`
-* You have a `<Windows/Linux/Mac>` machine.
-* You have read `<guide/link/documentation_related_to_project>`.
-
-## Installing <project_name>
-
-If all the requirements are met, follow these steps to install `<project_name>`:
+### Using ArUco-Nav
 
 From the command line, execute the following:
 
 ```bash
 # Clone this repository
-$ git clone <insert repository name>
+$ git clone https://github.com/ArUco-Nav-Final-Year-Project-20/ArUco-Nav.git/
 ```
 ```bash
 # Go into the repository
-$ cd <project name>
+$ cd ArUco-Nav/
 ```
-
-`<insert .env file related steps and similar setup>`
-
 ```bash
 # Install dependencies
-$ npm install
+$ pip install numpy
+$ pip install opencv-contrib-python
+$ pip install simple-pid
 ```
+Calibrate the camera and replace the contents of the ```cameraMatrix.txt``` and ```distortionCoefficients.txt``` files inside the ```camera_calibration_config``` folder with the appropriate intrinsic parameter values.
+
+Launch the ArUco Scanner app and replace the ```aruco_vision_server_IP``` address with the one obtained from the application screen.
+
+
 ```bash
-# Run the app
-$ npm start
+# Localize ArUco markers
+$ python aruco_nav_sim.py
 ```
-Once server is setup, open http://localhost:3000 and take a look around!
-
-## Using <project_name>
-
-To use `<project_name>`, follow these steps:
-
-```
-<usage_example>
-```
-
-Add run commands and examples you think users will find useful. Provide an options reference for bonus points!
-
-## Contributing to <project_name>
-<!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute to <project_name>, follow these steps:
-
-1. Fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin <project_name>/<location>`
-5. Create the pull request.
-
-Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-## Contributors
-
-Thanks to the following people who have contributed to this project:
-
-* [@scottydocs](https://github.com/scottydocs) 📖
-* [@cainwatson](https://github.com/cainwatson) 🐛
-* [@calchuchesta](https://github.com/calchuchesta) 🐛
-
-You might want to consider using something like the [All Contributors](https://github.com/all-contributors/all-contributors) specification and its [emoji key](https://allcontributors.org/docs/en/emoji-key).
-
-## Contact
-
-If you want to contact me you can reach me at <your_email@address.com>.
-
-
-## License
->You can check out the full license [here](LICENSE.md)
-
-This project is licensed under the terms of the **`<insert license name>`** license.

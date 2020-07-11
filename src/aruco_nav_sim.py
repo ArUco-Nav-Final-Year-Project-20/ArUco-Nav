@@ -22,8 +22,8 @@ aruco_vision_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # pygame window name
 window_name = "ArUco-Scanner-Nav-Sim"
 # pygame window size
-width = 720
-height = 480
+width = 1280
+height = 720
 size = [width, height]
 # pygame colors
 BLACK = (0, 0, 0)
@@ -64,7 +64,7 @@ while not done:
         aruco_vision_client.send("g".encode())
         clock.tick(5)
         # storing JSON response containing marker data
-        s = aruco_vision_client.recv(10000)
+        s = aruco_vision_client.recv(100000)
         # populating marker dictionary with received marker data
         markersDict = json.loads(s.decode())
     except:
@@ -114,9 +114,17 @@ while not done:
             # end position coordinates
             Pj = (int(corners[j]["x"]), int(corners[j]["y"]))
             # line connecting start and end positions
-            pygame.draw.line(screen, GREEN, Pi, Pj, 3)
+            if marker_id in [25, 400, 750, 900]:
+            	# barrier markers
+                pygame.draw.line(screen, RED, Pi, Pj, 3)
+            else:
+                pygame.draw.line(screen, GREEN, Pi, Pj, 3)
         # drawing heading line
-        pygame.draw.line(screen, CYAN, (Xc, Yc), (Xt, Yt), 3)
+        if marker_id in [25, 400, 750, 900]:
+        	# barrier markers
+            pygame.draw.line(screen, RED, (Xc, Yc), (Xt, Yt), 3)
+        else:
+            pygame.draw.line(screen, CYAN, (Xc, Yc), (Xt, Yt), 3)
         # showing marker ID at the center
         blitText(str(marker_id), WHITE, Xc, Yc)
 
